@@ -28,7 +28,7 @@ public abstract record DarkMode
 	}
 }
 
-[Reducer(typeof(DarkMode))]
+[Reducer(typeof(DarkMode), PublishStrategy.FireAndForget)]
 public static class DarkModeReducer
 {
 	public static ReducerResult<DarkMode.State, DarkMode.Event> Handle(DarkMode.State current, DarkMode.Command.Toggle command)
@@ -43,6 +43,19 @@ public partial class Component : IEventHandler<DarkMode.Event>
 {
 	[Inject]
 	public IState<DarkMode.State> State { get; init; } = default!;
+
+	protected override void OnInitialized()
+	{
+		Subscribe();
+	}
+
+	public ValueTask HandleAsync(DarkMode.Event.StateChanged @event, CancellationToken token)
+		=> ValueTask.CompletedTask;
+
+	public void Dispose()
+	{
+		Unsubscribe();
+	}
 }
 ";
 
@@ -67,11 +80,10 @@ public partial class Component : IEventHandler<DarkMode.Event>
 
 		Assert.True(result.Diagnostics.IsEmpty);
 
-		/*
-		Assert.Single(result.Results);
-		Assert.Equal(3, result.Results[0].GeneratedSources.Length);
+		Assert.True(result.Results.Any());
+		Assert.True(result.Results[0].GeneratedSources.Length >= 2);
 
-		var generated = result.Results[0].GeneratedSources[2].SourceText.ToString();
-		*/
+		var generatedStore = result.Results[0].GeneratedSources[^2].SourceText.ToString();
+		var generatedComponent = result.Results[0].GeneratedSources[^1].SourceText.ToString();
 	}
 }

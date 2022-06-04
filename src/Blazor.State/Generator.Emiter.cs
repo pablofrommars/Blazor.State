@@ -22,7 +22,7 @@ public partial class Generator
 				return;
 			}
 
-			var schemas = new Dictionary<(string @namespace, string name), (INamedTypeSymbol state, INamedTypeSymbol command, List<string> commands, INamedTypeSymbol @event, List<string> events, (string @namespace, string name) reducer)>();
+			var schemas = new Dictionary<(string @namespace, string name), (INamedTypeSymbol state, INamedTypeSymbol command, List<string> commands, INamedTypeSymbol @event, List<string> events, (string @namespace, string name, string publishStrategy) reducer)>();
 
 			// * https://github.com/dotnet/runtime/blob/6b11d64e7ef8f1685570f87859a3a3fe1c177d0f/src/libraries/Microsoft.Extensions.Logging.Abstractions/gen/LoggerMessageGenerator.Parser.cs#L102
 			foreach (var syntaxTreeGroup in reducerCandidates.GroupBy(x => x.SyntaxTree))
@@ -42,7 +42,7 @@ public partial class Generator
 
 					bool isValidReducer = false;
 					INamedTypeSymbol? schemaType = default;
-					int publishStrategy = 0;
+					string? publishStrategy = null;
 
 					foreach (var attributeListSyntax in @class.AttributeLists)
 					{
@@ -89,7 +89,16 @@ public partial class Generator
 								}
 
 								schemaType = arguments[0].Value as INamedTypeSymbol;
-								publishStrategy = (int)arguments[1].Value!;
+
+								var values = (arguments[1].Type as INamedTypeSymbol)!.MemberNames!;
+
+								var index = (int)arguments[1].Value!;
+								if (index >= values.Count() || index < 0)
+								{
+									index = 0;
+								}
+
+								publishStrategy = values.ElementAt(index);
 
 								isValidReducer = true;
 							}
@@ -250,7 +259,7 @@ public partial class Generator
 						continue;
 					}
 
-					schemas[(schemaType!.GetNamespace()!, schemaType!.Name)] = (state!, commandBase, commands!, eventBase, events!, (symbol.GetNamespace()!, symbol.Name));
+					schemas[(schemaType!.GetNamespace()!, schemaType!.Name)] = (state!, commandBase, commands!, eventBase, events!, (symbol.GetNamespace()!, symbol.Name, publishStrategy!));
 				}
 			}
 
