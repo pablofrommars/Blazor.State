@@ -29,11 +29,10 @@ public abstract record DarkMode
 }
 ```
 
-
 ```csharp
 // ! A Reducer instructs how commands modify states and publish events
 
-[Reducer<DarkMode>]
+[Reducer<DarkMode>(PublishStrategy.Async)]
 public static class Reducer
 {
 	public static ReducerResult<DarkMode.State, DarkMode.Event> Handle(DarkMode.State current, DarkMode.Command.Toggle command)
@@ -46,23 +45,30 @@ public static class Reducer
 ```
 
 ```csharp
-// ! Components can...
-
-// ! React to events
 @implements IEventHandler<DarkMode.Event>
+@implements IDisposable
 
-// ! Observe State
-@inject IState<DarkMode.State> State;
+@inject IState<DarkMode.State> State
 
-<button @onclick=@(() => SendAsync(new DarkMode.Command.Toggle()))>Toggle Mode</button>
-
-<p class="@(State.Value.IsDark ? "text-dark" : "text-light")">Rock'n'Roll</p>
+<main class="@(State.Value.IsDark ? "dark" : "")">
+    @Body
+</main>
 
 @code {
-	public async ValueTask HandleAsync(DarkMode.Event.StateChanged @event, CancellationToken token)
-	{
-		...
-	}
+    protected override void OnInitialized()
+    {
+        Subscribe();
+    }
+
+    public async ValueTask HandleAsync(DarkMode.Event.StateChanged @event, CancellationToken token)
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        Unsubscribe();
+    }
 }
 ```
 
