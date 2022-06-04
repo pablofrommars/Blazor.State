@@ -1,0 +1,27 @@
+﻿@inherits LayoutComponentBase
+
+@implements IEventHandler<DarkMode.Event>
+@implements IDisposable
+
+@inject IState<DarkMode.State> State
+
+<main class="@(State.Value.IsDark ? "dark" : "")">
+    @Body
+</main>
+
+@code {
+    protected override void OnInitialized()
+    {
+        Subscribe();
+    }
+
+    public async ValueTask HandleAsync(DarkMode.Event.StateChanged @event, CancellationToken token)
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        Unsubscribe();
+    }
+}

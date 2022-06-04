@@ -42,6 +42,42 @@
 				"cwd": "packages"
 			},
 			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "build",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/samples/Blazor.State.Demo/Blazor.State.Demo.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "publish",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"publish",
+				"${workspaceFolder}/samples/Blazor.State.Demo/Blazor.State.Demo.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "watch",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"watch",
+				"run",
+				"--project",
+				"${workspaceFolder}/samples/Blazor.State.Demo/Blazor.State.Demo.csproj"
+			],
+			"problemMatcher": "$msCompile"
 		}
 	],
 	"inputs": [

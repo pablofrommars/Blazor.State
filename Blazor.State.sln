@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E750CFFD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.State.Tests", "tests\Blazor.State.Tests\Blazor.State.Tests.csproj", "{FF2BEDE2-E93C-499D-B798-6818ED70FD57}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{9DF16331-756F-4764-BDD6-407B3AE7946D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.State.Demo", "samples\Blazor.State.Demo\Blazor.State.Demo.csproj", "{6D8AD09D-38AD-4F5A-923D-0910678DDFBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,9 +32,14 @@ Global
 		{FF2BEDE2-E93C-499D-B798-6818ED70FD57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF2BEDE2-E93C-499D-B798-6818ED70FD57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF2BEDE2-E93C-499D-B798-6818ED70FD57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D8AD09D-38AD-4F5A-923D-0910678DDFBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D8AD09D-38AD-4F5A-923D-0910678DDFBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D8AD09D-38AD-4F5A-923D-0910678DDFBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D8AD09D-38AD-4F5A-923D-0910678DDFBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AD86029D-7A8F-4159-AA67-8228776FAF6C} = {04E73863-3F18-4E9F-A584-2B5A8A309DDB}
 		{FF2BEDE2-E93C-499D-B798-6818ED70FD57} = {E750CFFD-5B00-4100-A499-B0D2338480E2}
+		{6D8AD09D-38AD-4F5A-923D-0910678DDFBA} = {9DF16331-756F-4764-BDD6-407B3AE7946D}
 	EndGlobalSection
 EndGlobal
