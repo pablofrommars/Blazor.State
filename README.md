@@ -58,10 +58,14 @@ public static class Reducer
 ## Wire your components
 
 ```csharp
-@implements IEventHandler<DarkMode.Event>
+@implements IEventHandler<DarkMode.Event> // Reacts to events
 @implements IDisposable
 
-@inject IState<DarkMode.State> State
+@inject IState<DarkMode.State> State // Observes state
+
+<button @onclick=@(async () => SendAsync(new DarkMode.Command.Toggle()))>
+	Toggle Dark Mode
+</button>
 
 <main class="@(State.Value.IsDark ? "dark" : "")">
     @Body
@@ -70,17 +74,20 @@ public static class Reducer
 @code {
     protected override void OnInitialized()
     {
-        Subscribe();
+        Subscribe(); // Initiate subscription to store broker
     }
 
     public async ValueTask HandleAsync(DarkMode.Event.StateChanged @event, CancellationToken token)
     {
+		// Called when State changes are pusblished
+
+		// Component can decide whether to re-render
         await InvokeAsync(StateHasChanged);
     }
 
     public void Dispose()
     {
-        Unsubscribe();
+        Unsubscribe(); // Dispose subscription
     }
 }
 ```
