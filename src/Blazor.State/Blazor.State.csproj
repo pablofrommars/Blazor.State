@@ -9,7 +9,7 @@
 
     <Authors>Pablo Belin</Authors>
     <Title>Blazor.State</Title>
-    <Description>State Manager for Blazor.</Description>
+    <Description>Source generator for Minimalistic State Management in Blazor.</Description>
     <Copyright>Copyright (c) 2022 Pablo Belin</Copyright>
     <PackageTags>dotnet;dotnetcore;csharp;blazor;server;wasm</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -22,6 +22,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" PrivateAssets="all" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="System.Threading.Channels" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>

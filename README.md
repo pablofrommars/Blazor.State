@@ -1,15 +1,26 @@
 Blazor.State
 ===============
 
-Source generator for Minimalistic State Management in Blazor
+[![NuGet](https://img.shields.io/nuget/vpre/Blazor.State.svg)](https://www.nuget.org/packages/Blazor.State)
+[![NuGet](https://img.shields.io/nuget/dt/Blazor.State.svg)](https://www.nuget.org/packages/Blazor.State) 
+
+Source generator for Minimalistic State Management in Blazor.
 
 # Installation
 
+Install [Blazor.State with NuGet](https://www.nuget.org/packages/Blazor.State):
+
+    Install-Package Blazor.State
+    
+Or via the .NET Core command line interface:
+
+    dotnet add package Blazor.State
+
 # Usage
 
-```csharp
-// ! Define your schema including state, commands and events
+## Define your schema including state, commands and events
 
+```csharp
 public abstract record DarkMode
 {
 	public record State
@@ -29,9 +40,9 @@ public abstract record DarkMode
 }
 ```
 
-```csharp
-// ! A Reducer instructs how commands modify states and publish events
+## Reducers instruct how commands modify states and publish events
 
+```csharp
 [Reducer<DarkMode>(PublishStrategy.Async)]
 public static class Reducer
 {
@@ -43,6 +54,8 @@ public static class Reducer
 		};
 }
 ```
+
+## Wire your components
 
 ```csharp
 @implements IEventHandler<DarkMode.Event>
@@ -72,8 +85,8 @@ public static class Reducer
 }
 ```
 
-```csharp
-// ! Last but not least Register Dependency Injection
+## Register Dependency Injection
 
+```csharp
 builder.Services.AddBlazorState();
 ```
